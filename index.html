@@ -30,7 +30,10 @@
 
   <script src="https://unpkg.com/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/stockfish@11.0.0/stockfish.js"></script>
+  <script>
+  const stockfish = new Worker("stockfish.js");
+</script>
+
   <script>
     const boardElement = document.getElementById("board");
     const messageElement = document.getElementById("message");
