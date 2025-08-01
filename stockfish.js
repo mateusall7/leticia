@@ -1,8 +1,16 @@
-self.onmessage = function(e) {
-  function respond(s) { postMessage(s + "\n"); }
-  if (e.data === "uci") {
-    respond("Stockfish pronto");
-  } else if (e.data.startsWith("go")) {
-    respond("bestmove e2e4");
-  }
-};
+// Encapsula o Stockfish em um Web Worker
+let engine = null;
+
+if (typeof importScripts === "function") {
+  // Estamos em um Web Worker
+  importScripts("https://cdn.jsdelivr.net/npm/stockfish@11.0.0/src/stockfish.js");
+
+  engine = STOCKFISH();
+
+  onmessage = function (event) {
+    engine.onmessage = function (e) {
+      postMessage({ data: e });
+    };
+    engine.postMessage(event.data);
+  };
+}
