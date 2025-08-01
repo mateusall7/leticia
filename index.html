@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Desafio de Xadrez</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chessboardjs@1.0.0/chessboard.min.css">
+  <!-- CSS do tabuleiro -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chessboardjs@1.0.0/dist/chessboard.min.css">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -29,15 +30,14 @@
 
   <!-- Bibliotecas externas -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chessboardjs@1.0.0/chessboard.min.js"></script>
-  
+  <script src="https://cdn.jsdelivr.net/npm/chessboardjs@1.0.0/dist/chessboard.min.js"></script>
+
   <!-- Lógica do jogo -->
   <script>
     const boardElement = document.getElementById("board");
     const messageElement = document.getElementById("message");
     const game = new Chess();
 
-    // ATENÇÃO: Certifique-se que o arquivo stockfish.js esteja presente na raiz do projeto
     const stockfish = new Worker("stockfish.js");
 
     let board = Chessboard("board", {
@@ -47,7 +47,7 @@
     });
 
     stockfish.postMessage("uci");
-    stockfish.postMessage("setoption name Skill Level value 5"); // nível médio
+    stockfish.postMessage("setoption name Skill Level value 5");
     stockfish.postMessage("ucinewgame");
     stockfish.postMessage("isready");
 
