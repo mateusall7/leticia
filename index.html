@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Desafio de Xadrez</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/1.0.0/css/chessboard.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard.min.css">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -27,17 +27,19 @@
   <div id="board"></div>
   <div id="message"></div>
 
-  <!-- Scripts das bibliotecas -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/1.0.0/js/chessboard.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard.min.js"></script>
 
-  <!-- Código do jogo -->
   <script>
     const boardElement = document.getElementById("board");
     const messageElement = document.getElementById("message");
     const game = new Chess();
 
-    const stockfish = new Worker("stockfish.js");
+    const stockfishBlob = new Blob([
+      'importScripts("https://cdn.jsdelivr.net/npm/stockfish@11.0.0/stockfish.js");'
+    ], { type: "application/javascript" });
+
+    const stockfish = new Worker(URL.createObjectURL(stockfishBlob));
 
     let board = Chessboard("board", {
       draggable: true,
